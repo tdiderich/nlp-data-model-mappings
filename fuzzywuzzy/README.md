@@ -36,15 +36,15 @@ Process: ('device_ip', 100)
 ```
 
 ### Understanding
-* src_ip 
+* src_ip - expected `srcDevice_ip`
     - all correct - same scores
 * dstIp 
-    - all correct 
+    - all correct - expected `dstDevice_ip`
     - partial ratio scored the highest (unsure if that matters)
-* client_ip 
+* client_ip - expected `device_ip`
     - only partial ratio was correct - although the rest had the second best option 
     - using all methods together wouldn't necessarily work better in this case 
-* device_ip 
+* device_ip - expected `device_ip`
     - all correct - same scores
 
 ## Output - challenging_ip_test.py
@@ -98,14 +98,18 @@ Process: ('dstDevice_ip', 54)
 
 ### Understanding - challenging_ip_test.py
 
-* src_ip 
-    - all correct - same scores
-* dstIp 
+* Event.IP - expected `device_ip`
+    - all but partial ratio correct 
+* EventData.srcIp - expected `srcDevice_ip`
+    - mixed bag 
+    - lower ratios where actually correct in this case 
+* EventData.dst_ip - expected `dstDevice_ip`
     - all correct 
-    - partial ratio scored the highest (unsure if that matters)
-* client_ip 
-    - only partial ratio was correct - although the rest had the second best option 
-    - using all methods together wouldn't necessarily work better in this case 
-* device_ip 
-    - all correct - same scores
-
+* foo.bar.client_ip - expected `device_ip`
+    - process is correct 
+    - srcDevice_ip would be the second option I might have expected 
+* foo.bar.device_ip - expected `device_ip`
+    - all but token set are correct  
+    - if the ratio is 100 it's correct?
+* destination_ip - expected `dstDevice_ip`
+    - all correct
